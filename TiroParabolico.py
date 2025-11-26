@@ -110,16 +110,16 @@ def main():
   tiempoT = float(input("Tiempo final t (en segundos): "))
 
   # Posiciones iniciales
-  x0 = float(input("Posición inicial x0: "))
-  y0 = float(input("Posición inicial y0: "))
-  z0 = float(input("Posición inicial z0: "))
+  x0 = float(input("Posición inicial x0 (m): "))
+  y0 = float(input("Posición inicial y0 (m): "))
+  z0 = float(input("Posición inicial z0 (m): "))
 
   # Velocidades iniciales
-  vx0 = float(input("Velocidad inicial vx0: "))
-  vy0 = float(input("Velocidad inicial vy0: "))
-  vz0 = float(input("Velocidad inicial vz0: "))
+  vx0 = float(input("Velocidad inicial vx0 (m/s): "))
+  vy0 = float(input("Velocidad inicial vy0 (m/s): "))
+  vz0 = float(input("Velocidad inicial vz0 (m/s): "))
 
-  print("\nCalculando la posición en el instante t...")
+  print("\nCalculando la posición en el instante t (s)...")
 
   # --- Cálculo puntual ---
   xt, yt, zt = posicion_t(x0, y0, z0, vx0, vy0, vz0, tiempoT)

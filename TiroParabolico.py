@@ -142,6 +142,7 @@ def main():
   xt, yt, zt = posicion_t(x0, y0, z0, vx0, vy0, vz0, tiempoT)
 
   print(f"\nPosición de la partícula en t = {tiempoT} s:")
+  # El comando .4f es para redondear a 4 cifras decimales
   print(f"x(t) = {xt: .4f} m")
   print(f"y(t) = {yt: .4f} m")
   print(f"z(t) = {zt: .4f} m")

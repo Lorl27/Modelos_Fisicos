@@ -9,19 +9,23 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # ? Para nuestro modelo tomaremos al eje y como eje vertical.
-# Fórmulas a utilizar (tomadas del libro Sears and Zemansky's University Physics with Modern Physics 14th Edition, página 76)
-# x(t) = (v0 * ​cos(α0)​)*t
-# y(t) = (v0 * ​sin(α0)​)* t − 1/2*​g*t^2
-# Las expresiones a usar (que están luego de la aclaración) se obtienen aplicando la ecuación vectorial de movimiento con aceleración constante r(t) = r0 + v0*t + 1/2*a*t^2.
+# Fórmulas a utilizar (tomadas del libro Sears and Zemansky's University Physics with Modern Physics 14th Edition, página 76).
+# Se obtienen aplicando la ecuación vectorial de movimiento con aceleración constante r(t) = r0 + v0*t + 1/2*a*t^2.
+
+# Eje X (MRU):
+# x(t) = x0 + vx0 * t
+
+# Eje Y (MRUV - Gravedad):
+# y(t) = y0 + vy0 * t - 0.5 * g * t^2
+
+# Eje Z (MRU - Análogo a X):
+# z(t) = z0 + vz0 * t
+
 # ! Aclaración: 
 # en dicha página no se hace mención del movimiento en el eje z, así que lo razonamos de la siguiente manera:
 # La única fuerza es el peso P = m*g, que sólo actúa en dirección vertical. Si definimos el eje vertical como y, tenemos:
 # ax = 0, ay = -g, az=0 pues no hay fuerzas en x o en z.
 # Entonces, si az = 0, el movimiento en z es rectilíneo uniforme como en x. De allí sale que la ecuación de z(t) sea igual a la de x(t).
-
-# x(t) = x0 + vx0*t
-# y(t) = y0 + vy0*t - 1/2gt^2
-# z(t) = z0 + vz0*t
 
 # La posición de la partícula en función del tiempo 't' viene dada por el siguiente vector:
 # r(t) = (x(t),y(t),z(t))
@@ -95,6 +99,11 @@ def grafica_trayectoria(xs, ys, zs):
   ax.legend()
 
   try:
+    ax.set_box_aspect([1, 1, 1])
+  except AttributeError:
+    pass
+  
+  try:
     plt.show()
   except Exception:
     plt.savefig("trayectoria.png")
@@ -107,17 +116,25 @@ def main():
   print("Por favor ingrese los datos iniciales:\n")
 
   # Tiempo final
-  tiempoT = float(input("Tiempo final t (en segundos): "))
+  try:
+    tiempoT = float(input("Tiempo final t (en segundos): "))
 
-  # Posiciones iniciales
-  x0 = float(input("Posición inicial x0 (m): "))
-  y0 = float(input("Posición inicial y0 (m): "))
-  z0 = float(input("Posición inicial z0 (m): "))
+    if tiempoT < 0:
+      print("Error: el tiempo debe ser mayor o igual a 0.")
+      return
 
-  # Velocidades iniciales
-  vx0 = float(input("Velocidad inicial vx0 (m/s): "))
-  vy0 = float(input("Velocidad inicial vy0 (m/s): "))
-  vz0 = float(input("Velocidad inicial vz0 (m/s): "))
+    # Posiciones iniciales
+    x0 = float(input("Posición inicial x0 (m): "))
+    y0 = float(input("Posición inicial y0 (m): "))
+    z0 = float(input("Posición inicial z0 (m): "))
+
+    # Velocidades iniciales
+    vx0 = float(input("Velocidad inicial vx0 (m/s): "))
+    vy0 = float(input("Velocidad inicial vy0 (m/s): "))
+    vz0 = float(input("Velocidad inicial vz0 (m/s): "))
+  except ValueError:
+    print("Error: Por favor ingrese solo números válidos.")
+    return
 
   print("\nCalculando la posición en el instante t (s)...")
 
@@ -125,9 +142,9 @@ def main():
   xt, yt, zt = posicion_t(x0, y0, z0, vx0, vy0, vz0, tiempoT)
 
   print(f"\nPosición de la partícula en t = {tiempoT} s:")
-  print(f"x(t) = {xt}")
-  print(f"y(t) = {yt}")
-  print(f"z(t) = {zt}")
+  print(f"x(t) = {xt: .4f} m")
+  print(f"y(t) = {yt: .4f} m")
+  print(f"z(t) = {zt: .4f} m")
 
   # --- Generación de la trayectoria ---
   print("\nGenerando la trayectoria completa desde t = 0 hasta t =", tiempoT)
@@ -139,8 +156,6 @@ def main():
 
   print("\nPrograma finalizado correctamente.")
 
-
-# EJECUTAR PROGRAMA
 if __name__ == "__main__":
   main()
 
